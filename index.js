@@ -46,12 +46,16 @@ const commentize = (strings, exprs) => {
   return temp
 }
 
+const transformComments = root => {
+  const walker = document.createTreeWalker(
+    root, 128 /* NodeFilter.SHOW_COMMENT */, null, false)
+  const nodesToReplace = []
+}
+
 const htmlTemplate = (strings, ...exprs) => {
   const text = commentize(strings, exprs)
   const root = parser.parseFromString(text, 'text/html')
-  const it = document.createNodeIterator(
-    root, NodeFilter.SHOW_COMMENT, () => NodeFilter.FILTER_ACCEPT, false)
-  // TODO
+  transformComments(root)
 }
 
 export const m = htmlTemplate
